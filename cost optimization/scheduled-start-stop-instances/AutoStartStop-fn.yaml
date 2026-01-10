@@ -1,0 +1,66 @@
+# This AWS SAM template has been generated from your function's configuration. If
+# your function has one or more triggers, note that the AWS resources associated
+# with these triggers aren't fully specified in this template and include
+# placeholder values. Open this template in AWS Infrastructure Composer or your
+# favorite IDE and modify it to specify a serverless application with other AWS
+# resources.
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Serverless Application Model template describing your function.
+Resources:
+  AutoStartStopfn:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 243
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      EphemeralStorage:
+        Size: 512
+      EventInvokeConfig:
+        MaximumEventAgeInSeconds: 21600
+        MaximumRetryAttempts: 2
+      PackageType: Zip
+      Policies:
+        - Statement:
+            - Sid: VisualEditor0
+              Effect: Allow
+              Action:
+                - ec2:DescribeInstances
+                - ec2:StartInstances
+                - ec2:StopInstances
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+              Resource: arn:aws:logs:ap-southeast-2:934070209538:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                - >-
+                  arn:aws:logs:ap-southeast-2:934070209538:log-group:/aws/lambda/AutoStartStop-fn:*
+      RecursiveLoop: Terminate
+      SnapStart:
+        ApplyOn: None
+      Events:
+        SNS1:
+          Type: SNS
+          Properties:
+            Topic:
+              Ref: SNSTopic1
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: Auto
+  SNSTopic1:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: SNSTopic1
+      KmsMasterKeyId:
+        Ref: KMSKeyForSNS1
+  KMSKeyForSNS1:
+    Type: AWS::KMS::Key
