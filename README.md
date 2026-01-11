@@ -25,6 +25,10 @@ Build a system that can:
 
  - Control cloud costs using intelligent, safe optimization strategies
 
+## 🏛️Architecture
+![Cloud main architecture  (2)](https://github.com/user-attachments/assets/b5c8b730-ce5b-4080-98e9-d488909667a1)
+
+
 ## 📜 Step-by-Step Guide
 
 ## Step 1: Launch EC2 Instances (Base Infrastructure)
@@ -76,9 +80,6 @@ Build a system that can:
  - EventBridge schedules run automatically.
  - Systems Manager Automation stops or starts EC2 instances based on tags.
  - Scheduled start and stop automation eliminates unnecessary runtime costs.
-
-![Cloud main architecture  (2)](https://github.com/user-attachments/assets/a16fadaf-ea49-4f6d-8f68-d54588526a58)
-
 
 
 ## Conclusion
